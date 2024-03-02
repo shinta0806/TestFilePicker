@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "TestFilePicker (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "TestFilePicker (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}
