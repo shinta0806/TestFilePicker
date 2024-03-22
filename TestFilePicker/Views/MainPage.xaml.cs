@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
 
 using TestFilePicker.ViewModels;
@@ -31,14 +31,21 @@ public sealed partial class MainPage : Page
 
 	public async void MenuFlyoutItemSaveClicked()
 	{
-		FileSavePicker fileSavePicker = App.MainWindow.CreateSaveFilePicker();
-		fileSavePicker.FileTypeChoices.Add("Text file", [".txt"]);
-		StorageFile? file = await fileSavePicker.PickSaveFileAsync();
-		if (file == null)
+		try
 		{
-			return;
+			FileSavePicker fileSavePicker = App.MainWindow.CreateSaveFilePicker();
+			fileSavePicker.FileTypeChoices.Add("Text file", [".txt"]);
+			StorageFile? file = await fileSavePicker.PickSaveFileAsync();
+			if (file == null)
+			{
+				return;
+			}
+			ViewModel.Notice = file.Path;
 		}
-		Debug.WriteLine(file.Path);
+		catch (Exception ex)
+		{
+			ViewModel.Notice = ex.Message + "\n" + ex.StackTrace;
+		}
 	}
 	#endregion
 
